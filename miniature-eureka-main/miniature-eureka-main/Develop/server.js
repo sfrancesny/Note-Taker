@@ -23,24 +23,24 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 });
 
-app.get('/notes', (req, res) => { // Changed '/' to '/notes'
+app.get('/notes', (req, res) => {
   res.sendFile(path.join(publicDir, 'notes.html'));
 });
 
 // API Routes
 app.get('/api/notes', (req, res) => {
-  const notesData = JSON.parse(fs.readFileSync(path.join(currentDir, 'db.json'), 'utf8'));
+  const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
   res.json(notesData);
 });
 
 app.post('/api/notes', (req, res) => {
   const newNote = req.body;
-  const notesData = JSON.parse(fs.readFileSync(path.join(currentDir, 'db.json'), 'utf8'));
+  const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
 
   newNote.id = notesData.length + 1;
   notesData.push(newNote);
 
-  fs.writeFileSync(path.join(currentDir, 'db.json'), JSON.stringify(notesData));
+  fs.writeFileSync(dbFilePath, JSON.stringify(notesData));
   res.json(newNote);
 });
 
