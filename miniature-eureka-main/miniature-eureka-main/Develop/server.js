@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 });
 
-app.get('/notes', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'notes.html'));
 });
 
