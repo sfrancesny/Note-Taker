@@ -11,16 +11,17 @@ app.use(express.json());
 
 // Calculate the directory name based on the current module's URL
 const currentDir = path.dirname(new URL(import.meta.url).pathname);
+const publicDir = path.join(currentDir, 'public'); // Path to the public folder
 
-app.use(express.static(path.join(currentDir, 'public')));
+app.use(express.static(publicDir));
 
 // HTML Routes
 app.get('/', (req, res) => {
-  res.sendFile(path.join(currentDir, 'public', 'index.html'));
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 app.get('/notes', (req, res) => {
-  res.sendFile(path.join(currentDir, 'public', 'notes.html'));
+  res.sendFile(path.join(publicDir, 'notes.html'));
 });
 
 // API Routes
