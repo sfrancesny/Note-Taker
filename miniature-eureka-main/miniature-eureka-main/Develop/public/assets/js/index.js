@@ -173,9 +173,10 @@ const renderNoteList = async (notes) => {
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => {
-  getNotes()
+  fetch('http://localhost:3000/api/notes') // Use your actual server URL
+    .then(response => response.json())
     .then(renderNoteList)
-    .catch(error => console.error('Fetch error:', error)); // Add the error handling here
+    .catch(error => console.error('Fetch error:', error));
 };
 
 if (window.location.pathname === '/notes.html') {
