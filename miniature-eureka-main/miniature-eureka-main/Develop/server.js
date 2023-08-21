@@ -1,4 +1,3 @@
-
 import express from 'express';
 import cors from 'cors'; // Import the cors middleware
 import fs from 'fs';
@@ -24,7 +23,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 });
 
-app.get('/', (req, res) => {
+app.get('/notes', (req, res) => { // Changed '/' to '/notes'
   res.sendFile(path.join(publicDir, 'notes.html'));
 });
 
