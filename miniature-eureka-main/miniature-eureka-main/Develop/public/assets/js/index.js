@@ -172,7 +172,11 @@ const renderNoteList = async (notes) => {
 };
 
 // Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then(renderNoteList);
+const getAndRenderNotes = () => {
+  getNotes()
+    .then(renderNoteList)
+    .catch(error => console.error('Fetch error:', error)); // Add the error handling here
+};
 
 if (window.location.pathname === '/notes.html') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
@@ -181,4 +185,5 @@ if (window.location.pathname === '/notes.html') {
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
-getAndRenderNotes();
+getAndRenderNotes(); // Call getAndRenderNotes() here
+
