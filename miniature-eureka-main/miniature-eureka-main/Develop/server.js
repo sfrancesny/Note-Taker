@@ -29,7 +29,7 @@ app.get('/notes', (req, res) => {
 
 // API Routes
 app.get('/api/notes', (req, res) => {
-  const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+  const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));                                                                           
   res.json(notesData);
 });
 
