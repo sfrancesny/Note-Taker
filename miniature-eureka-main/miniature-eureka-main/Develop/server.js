@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-const currentDir = path.dirname(new URL(import.meta.url).pathname);
+const currentDir = path.resolve(new URL(import.meta.url).pathname.slice(1));
 const publicDir = path.join(currentDir, 'public'); // path to the public folder
 const dbFilePath = path.join(currentDir, 'db.json'); // added dbFilePath
 
@@ -23,15 +23,18 @@ app.use(express.static(publicDir));
 
 // HTML Routes
 app.get('/', (req, res) => {
+  console.log(`Current Directory: ${currentDir}`);
   res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 app.get('/notes', (req, res) => {
+  console.log(`Public Directory: ${publicDir}`);
   res.sendFile(path.join(publicDir, 'notes.html'));
 });
 
 // API Routes
 app.get('/api/notes', (req, res) => {
+  console.log(`Database File Path: ${dbFilePath}`);
   const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));                                                                           
   res.json(notesData);
 });
