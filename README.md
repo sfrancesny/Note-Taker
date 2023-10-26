@@ -43,4 +43,4 @@ Xpert Learning Assistant
 <img src="miniature-eureka-main/miniature-eureka-main/Develop/public/assets/Module11-NoteTaker1.png"/>
 
 ## Link to Deployed Application
-Link: 
+Link: https://secret-refuge-98302-59c89899381f.herokuapp.com/
