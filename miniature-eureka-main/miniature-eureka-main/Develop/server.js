@@ -15,7 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-const currentDir = path.resolve(new URL(import.meta.url).pathname.slice(1));
+const currentDir = path.resolve(process.cwd());
+
 const publicDir = path.join(currentDir, 'public'); // path to the public folder
 const dbFilePath = path.join(currentDir, 'db.json'); // added dbFilePath
 
@@ -33,21 +34,51 @@ app.get('/notes', (req, res) => {
 });
 
 // API Routes
+
+// Get all notes
 app.get('/api/notes', (req, res) => {
-  console.log(`Database File Path: ${dbFilePath}`);
-  const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));                                                                           
-  res.json(notesData);
+  console.log('Fetching all notes.');
+  try {
+    const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+    res.json(notesData);
+  } catch (err) {
+    console.error('Error reading from db file:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
+// Save a new note
 app.post('/api/notes', (req, res) => {
+  console.log('Saving a new note.');
   const newNote = req.body;
-  const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+  try {
+    const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+    newNote.id = uuidv4();
+    notesData.push(newNote);
+    fs.writeFileSync(dbFilePath, JSON.stringify(notesData));
+    res.json(newNote);
+  } catch (err) {
+    console.error('Error saving note:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
-  newNote.id = uuidv4();  // generates a unique ID
-  notesData.push(newNote);
-
-  fs.writeFileSync(dbFilePath, JSON.stringify(notesData));
-  res.json(newNote);
+// Delete a note by ID
+app.delete('/api/notes/:id', (req, res) => {
+  console.log(`Deleting note with ID: ${req.params.id}`);
+  try {
+    const notesData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+    const noteIndex = notesData.findIndex(note => note.id === req.params.id);
+    if (noteIndex === -1) {
+      return res.status(404).json({ error: "Note not found" });
+    }
+    notesData.splice(noteIndex, 1);
+    fs.writeFileSync(dbFilePath, JSON.stringify(notesData));
+    res.status(204).end();
+  } catch (err) {
+    console.error('Error deleting note:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Fallback route
