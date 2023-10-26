@@ -29,30 +29,32 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
+// Define API calls to interact with the server for notes-related operations
 const getNotes = () =>
   fetch('/api/notes', {
-    method: 'GET',
+    method: 'GET', // Use HTTP GET method to request the list of notes
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json', // Set the content type of the request to JSON
     },
   });
 
 const saveNote = (note) =>
   fetch('/api/notes', {
-    method: 'POST',
+    method: 'POST', // Use HTTP POST method to send a new note to the server
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json', // Set the content type of the request to JSON
     },
-    body: JSON.stringify(note),
+    body: JSON.stringify(note), // Convert the note object to a JSON string for transmission
   });
 
-  const deleteNote = (id) =>
+const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
-    method: 'DELETE',
+    method: 'DELETE', // Use HTTP DELETE method to request deletion of a specific note by ID
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json', // Set the content type of the request to JSON
     },
   });
+
 
   const renderActiveNote = () => {
     hide(saveNoteBtn);
@@ -164,20 +166,23 @@ const renderNoteList = async (notes) => {
     return liEl;
   };
 
-  if (notes.length === 0) {
-    noteListItems.push(createLi('No saved Notes', false));
-  } else {
-    notes.forEach((note) => {
-      const li = createLi(note.title);
-      li.dataset.note = JSON.stringify(note);
-      noteListItems.push(li);
-    });
+// if there are no notes, display a message in the list.
+if (notes.length === 0) {
+  // display "no saved Notes" when the notes list is empty.
+  noteListItems.push(createLi('No saved Notes', false));
+} else {
+  // create and display list items for each saved note.
+  notes.forEach((note) => {
+    const li = createLi(note.title);
+    li.dataset.note = JSON.stringify(note);
+    noteListItems.push(li);
+  });
 
-    if (window.location.pathname === '/notes.html') {
-      noteListItems.forEach((note) => noteList[0].append(note));
-    }
+  // append notes to the sidebar if the user is on the /notes.html page.
+  if (window.location.pathname === '/notes.html') {
+    noteListItems.forEach((note) => noteList[0].append(note));
   }
-};
+}};
 
 // gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => {
@@ -193,21 +198,29 @@ const getAndRenderNotes = () => {
 };
 
 if (window.location.pathname === '/notes.html') {
-  saveNoteBtn.addEventListener('click', handleNoteSave);
-  newNoteBtn.addEventListener('click', handleNewNoteView);
-  noteTitle.addEventListener('keyup', handleRenderSaveBtn);
-  noteText.addEventListener('keyup', handleRenderSaveBtn);
+  document.addEventListener('DOMContentLoaded', () => {
+    saveNoteBtn.addEventListener('click', handleNoteSave);
+    newNoteBtn.addEventListener('click', handleNewNoteView);
+    noteTitle.addEventListener('keyup', handleRenderSaveBtn);
+    noteText.addEventListener('keyup', handleRenderSaveBtn);
 
-  clearFormBtn.addEventListener('click', () => {
-    const isConfirmed = confirm('Are you sure you want to clear the form?');
-    if (isConfirmed) {
-      noteTitle.value = '';
-      noteText.value = '';
-      // triggers the render save button logic to update the visibility of the save button
-      handleRenderSaveBtn();
+    const clearFormBtn = document.getElementById('clearFormButton');
+    if (clearFormBtn) {
+      clearFormBtn.addEventListener('click', () => {
+        const isConfirmed = confirm('Are you sure you want to clear the form?');
+        if (isConfirmed) {
+          noteTitle.value = '';
+          noteText.value = '';
+          // triggers the render save button logic to update the visibility of the save button
+          handleRenderSaveBtn();
+        }
+      });
+    } else {
+      console.error('Clear Form Button not found!');
     }
   });
 }
+
 
 getAndRenderNotes(); // Call getAndRenderNotes() here
 

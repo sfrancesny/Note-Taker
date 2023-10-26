@@ -76,3 +76,11 @@ body {
   padding: 20px;
   cursor: pointer;
 }
+
+#saveButton, #clearFormButton {
+  padding: 10px;
+  margin: 5px;
+  color: white;
+  font-family: 'Indie Flower', cursive;
+}
+
