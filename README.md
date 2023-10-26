@@ -1,4 +1,4 @@
-# Note Taker Starter
+# Module 11 - Note Taker
 <!-- On-the-job ticket or feature request challenges -->
 
 ## Description
