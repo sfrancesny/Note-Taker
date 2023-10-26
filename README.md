@@ -39,8 +39,8 @@ Create your personalized note.
 Xpert Learning Assistant
 
 ## Screenshot of Deployed Application
-<img src="miniature-eureka-main/miniature-eureka-main/Develop/public/assets/Module11-NoteTaker0.png"/>
-<img src="miniature-eureka-main/miniature-eureka-main/Develop/public/assets/Module11-NoteTaker1.png"/>
+<img src="Develop/public/assets/Module11-NoteTaker0.png"/>
+<img src="Develop/public/assets/Module11-NoteTaker1.png"/>
 
 ## Link to Deployed Application
 Link: https://secret-refuge-98302-59c89899381f.herokuapp.com/
