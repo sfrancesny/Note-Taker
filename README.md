@@ -5,9 +5,9 @@
 This is a user-friendly note-taking application designed for all users who has a need to jot down, save, and organize their ideas and tasks. Upon entering, users are greeted with a clean landing page leading to their notes, which are neatly displayed for easy access and editing. With features to add, save, and view notes on-the-go, managing tasks and thoughts has never been simpler. 
 
 ## Tools & Technologies:
-Express.js 
-CORS 
-NODEMON
+Express.js /
+CORS /
+NODEMON /
 UUID
 
 ## User Story
@@ -31,9 +31,9 @@ WHEN I click on the "New Note" button in the navigation at the top of the page
 THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column and the button disappears
 
 ## Usage
-Click on the link to the deployed application 
-Click 'Get Started' 
-Create your personalized note 
+Click on the link to the deployed application. 
+Click 'Get Started'.
+Create your personalized note.
 
 ## Resources
 Xpert Learning Assistant
